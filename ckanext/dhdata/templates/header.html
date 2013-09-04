@@ -1,0 +1,73 @@
+{% block header %}
+<header id="navbar" role="banner" class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      {% block header_logo %}
+        {% if g.site_logo %}
+          <a class="logo pull-left" href="/" title="Home">
+            <img src="{{ h.url_for_static(g.site_logo) }}" alt="{{ g.site_title }} Logo" title="{{ g.site_title }} Logo" />
+          </a>
+        {% else %}
+          <a class="logo pull-left" href="{{ h.url('home') }}">{{ g.site_title }}</a>
+        {% endif %}
+      {% endblock %}
+      <div class="nav-collapse collapse">
+        <nav role="navigation">
+          {% block header_site_navigation %}
+            <ul class="menu nav">
+              {% block header_site_navigation_tabs %}
+                {{ h.build_nav_main(
+                   ('search', _('Datasets')),
+                   ('organizations_index', _('Organizations')),
+                   ('group_index', _('Groups')),
+                   ('about', _('About'))
+                 ) }}
+              {% endblock %}
+            </ul>
+          {% endblock %}
+          <ul class="menu nav pull-right">
+            {% block header_site_search %}
+              {#
+              <li class="first leaf">
+                <form class="section form-horizontal site-search simple-input" action="{% url_for controller='package', action='search' %}" method="GET">
+                  <input id="field-sitewide-search" type="text" name="q" placeholder="{{ _('Search Datasets') }}" />
+                  <button class="btn-search" type="submit">{{ _('Search') }}</button>
+                </form>
+              </li>
+              #}
+            {% endblock %}
+            {% block header_account %}
+              {% if c.userobj %}
+                {% block header_account_logged %}
+                  {% if c.userobj.sysadmin %}
+                    <li class="leaf">
+                      <a href="{{ h.url_for(controller='admin', action='index') }}" title="{{ _('Sysadmin settings') }}">
+                        <i class="icon-legal"></i>
+                      </a>
+                    </li>
+                  {% endif %}
+                  <li class="leaf">
+                    <a href="/user" title="{{ _('View profile') }}">My Account</a>
+                  </li>
+                  <li class="leaf last">
+                    <a href="/user/logout" title="{{ _('Log out') }}">Log out</a>
+                  </li>
+                {% endblock %}
+              {% else %}
+                {% block header_account_notlogged %}
+                  <li class="leaf last first"><a class="persona-sign-in" href="/user">Sign up</a></li>
+                {% endblock %}
+              {% endif %}
+            {% endblock %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}

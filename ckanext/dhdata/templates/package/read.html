@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{% url_for_static '/qa/css/ckanext-qa.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{% url_for_static '/qa/scripts/qa.js' %}"></script>
+{% endblock %}

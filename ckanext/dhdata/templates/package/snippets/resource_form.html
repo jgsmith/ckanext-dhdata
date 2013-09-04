@@ -1,0 +1,63 @@
+{% ckan_extends %}
+{% import 'macros/form.html' as form %}
+
+{# we want to make this a controlled vocabulary for now so that people
+   put their resources in a finite set of buckets
+
+   api: REST, SPARQL (4-5 stars)
+   computable file: JSON (2-5), CSV (2-3), TXT (2), n3 (3-5), ... (2-5 stars)
+   data model: plain text (2-3), RDF (3-4), LoD RDF or JSON-LD (5)
+   data schema(s): for RDF/LoD, what are the schemas used for the data? (Shared Canvas, Open Annotation, Foaf, DC, ... -- some of this can be figured out by looking at the namespaces used in the RDF)
+   human-readable only: PDF, PS (1 star)
+
+   We can also do server-side verification of file types.
+
+
+   DC Types used:
+     Dataset: LoD, RDF, CSV, etc. (columnar or linked open data)
+     Image: an image: SVG, PNG, TIFF, etc.
+     InteractiveResource: for human consumption, such as a web search page
+     MovingImage: movie as a target of computational research
+     Service: API endpoint
+     Sound: representations of music (MEI) or recordings (MP3)
+     StillImage: (the object of digitization is a still image and this is a digital representation of that digitized object)
+     Text: textual data (not columnar or linked data)
+     
+
+ckan.preview.loadable = html htm rdf+xml owl+xml xml n3 n-triples turtle plain atom csv tsv rss txt json
+
+
+ #}
+{% block basic_fields_format %}
+  {{ form.select('format', 'form-format', label=_('Format'), options=[
+    {'text':'Collection: Atom', 'value':'atom'},
+    {'text':'Collection: RSS', 'value':'rss'},
+    {'text':'Collection: ORE', 'value':'ore'},
+    {'text':'Dataset: Comma Separated Value (CSV)', 'value':'csv'}, 
+    {'text':'Dataset: CD or DVD Image (ISO)', 'value':'iso'},
+    {'text':'Dataset: Filesystem Snapshot', 'value':'snapshot'},
+    {'text':'Dataset: GEDCOM', 'value':'gedcom'},
+    {'text':'Dataset: JSON', 'value':'json'},
+    {'text':'Dataset: JSON-LD', 'value':'json-ld'},
+    {'text':'Dataset: OWL/XML', 'value':'owl+xml'}, 
+    {'text':'Dataset: KML', 'value':'kml'},
+    {'text':'Dataset: RDF/JSON', 'value':'rdf+json'},
+    {'text':'Dataset: RDF/N3', 'value':'n3'}, 
+    {'text':'Dataset: RDF/N-Triples', 'value':'n-triples'}, 
+    {'text':'Dataset: RDF/Turtle', 'value':'turtle'}, 
+    {'text':'Dataset: RDF/XML', 'value':'rdf+xml'}, 
+    {'text':'Dataset: Tab Separated Value (TSV)', 'value':'tsv'}, 
+    {'text':'Image: SVG', 'value':'svg'},
+    {'text':'Interactive Resource (Generic)', 'value':'htm'},
+    {'text':'Music: MEI', 'value':'mei'},
+    {'text':'Service (Generic)', 'value': 'api' },
+    {'text':'Service: REST', 'value': 'api/rest' },
+    {'text':'Service: SPARQL', 'value': 'api/sparql' },
+    {'text':'Text: HTML', 'value':'html'}, 
+    {'text':'Text: Plain text', 'value':'txt'}, 
+    {'text':'Text: PDF', 'value':'pdf'}, 
+    {'text':'Text: RTF', 'value':'rtf'}, 
+    {'text':'Text: TEI', 'value':'tei'}, 
+    {'text':'Text: TEI Archive', 'value':'tei+zip'}, 
+  ], selected=data.format, error=errors.format) }}
+{% endblock %}

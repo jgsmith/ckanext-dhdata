@@ -1,0 +1,19 @@
+{% ckan_extends %}
+
+{%- block meta -%}
+  {{ super() }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%- endblock -%}
+
+{%- block bodytag -%}
+  {{ super() }}
+  class="html one-sidebar sidebar-first page-node"
+{%- endblock -%}
+{%- block styles -%}
+<style>@import url("https://www.dhdata.org/sites/all/themes/dhdata_white/css/bootstrap.min.css?moi0zw");
+@import url("https://www.dhdata.org/sites/all/themes/dhdata_white/css/bootstrap-responsive.min.css?moi0zw");
+@import url("https://www.dhdata.org/sites/all/themes/dhdata_white/css/style.css?moi0zw");
+@import url("https://www.dhdata.org/sites/all/themes/dhdata_white/css/overrides.css?moi0zw");
+@import url("https://www.dhdata.org/sites/all/themes/dhdata_white/css/ckan.css?moi0zw");
+</style>
+{% endblock -%}

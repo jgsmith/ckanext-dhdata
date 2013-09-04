@@ -1,0 +1,56 @@
+{% ckan_extends %}
+
+{% block add_action_content %}
+{% endblock %}
+
+{% block primary_content %}
+  <div class="module">
+    <div class="module-content">
+      <h1>{{ _('Organizations') }}</h1>
+      {% if c.page.items or request.params %}
+        {% snippet "organization/snippets/organization_list.html", organizations=c.page.items %}
+      {% else %}
+        <p class="empty">
+          {{ _('There are currently no organizations for this site') }}.
+          {% if h.check_access('organization_create') %}
+            {% link_for _('How about creating one?'), controller='organization', action='new' %}</a>
+          {% else %}
+            {% if c.userobj %}
+               <a href="/dhdata/request/organization">How about requesting one?</a>
+            {% endif %}
+          {% endif %}
+        </p>
+      {% endif %}
+    </div>
+    {{ c.page.pager() }}
+  </div>
+{% endblock %}
+
+{% block secondary_content %}
+  <div class="module module-narrow module-shallow">
+    <h3 class="module-heading">
+      {{ _('What are Organizations?') }}
+    </h3>
+    <div class="module-content">
+      {% trans %}
+        <p>Organizations act like publishing departments for datasets (for
+          example, the Department of Health). This means that datasets can be
+          published by and belong to a department instead of an individual
+          user.</p>
+        <p>Within organizations, admins can assign roles and authorisation its
+          members, giving individual users the right to publish datasets from
+          that particular organisation (e.g. Office of National Statistics).</p>
+      {% endtrans %}
+  {% if h.check_access('organization_create') %}
+    {% link_for _('Add Organization'), controller='organization', action='new', class_='btn btn-primary', icon='plus-sign-alt' %}
+  {% else %}
+    {% if c.userobj %}
+      <a class="btn btn-primary" href="/dhdata/request/organization">
+        <i class="icon icon-plus-sign-alt"></i>
+        Request Organization
+      </a>
+    {% endif %}
+  {% endif %}
+    </div>
+  </div>
+{% endblock %}

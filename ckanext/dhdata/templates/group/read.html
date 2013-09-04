@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block secondary_content %}
+  {% for facet in c.facet_titles %}
+    {% if facet == 'res_format' %}
+      {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, label_function=h.dhdata_format_facet_namer, extras={'id':c.group_dict.id}) }}
+    {% else %}
+      {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }}
+    {% endif %}
+  {% endfor %}
+{% endblock %}
